@@ -2,6 +2,7 @@
   <div>
     <h1>Login:</h1>
     <form @submit.prevent="handleSubmit">
+        <p v-if="errorMessage">{{errorMessage}}</p>
         <div>
             <label for="email">Email</label>
             <input type="email" name="email" id="email" v-model="submittedEmail">
@@ -20,7 +21,8 @@ export default {
     data() {
         return {
             submittedEmail: '',
-            submittedPassword: ''
+            submittedPassword: '',
+            errorMessage: ''
         }
     },
     methods: {
@@ -30,8 +32,8 @@ export default {
                 password: this.submittedPassword
             }).then(() => {
                 this.$router.replace('/dashboard');
-            }).catch(err => {
-                console.log(err);
+            }).catch(() => {
+                this.errorMessage = 'Email and password combination is wrong.';
             });
         }
     }

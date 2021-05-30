@@ -28,12 +28,23 @@ export default createStore({
         email: payload.email,
         password: payload.password
       });
-      // get response on bad creds
 
       return context.dispatch('attempt', {
         token: response.data.token
       });
-      // another action for register: send a request on auth/register with the appropriate fields, check if everything is good and dispatch a login for the newly ceated user
+      // another action for register: send a request on auth/register with the appropriate fields, check if everything is good and dispatch a login for the newly created user
+    },
+    async register(context, payload) {
+      const response = await axios.post('/auth/register', {
+        username: payload.username,
+        email: payload.email,
+        password: payload.password
+      });
+
+      return context.dispatch('login', {
+        email: payload.email,
+        password: payload.password
+      });
     },
     async attempt(context, payload) {
       // If there is a non null token in the payload, use it to set our token, if not then, the token hasn't been set in the state and we can stop the attempt.
