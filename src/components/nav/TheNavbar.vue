@@ -1,19 +1,12 @@
 <template>
-    <nav>
-        <p><router-link to="/">Home</router-link></p>
-        <ul>
-            <div v-if="isLoggedIn && userDetails">
-                <li><router-link to="about">About</router-link></li>
-                <li><router-link to="dashboard">Dashboard</router-link></li>
-                <li><button @click="logout">Logout</button></li>
-                <p>Welcome {{userDetails.username}}.</p>
-            </div>
-            <div v-else>
-                <li><router-link to="login">Login</router-link></li>
-                <li><router-link to="register">Register</router-link></li>
-            </div>
-        </ul>
-    </nav>
+    <MenuBar :model="menuItems">
+        <template #start>
+            <router-link to="/"><img src="@/assets/img/logo.png" alt="logo" height="100" class="p-mr-2"></router-link>
+        </template>
+        <template v-if="isLoggedIn && userDetails" #end>
+            <Button @click="logout">Logout</Button>
+        </template>
+    </MenuBar>
 </template>
 
 <script>
@@ -31,6 +24,33 @@ export default {
         },
         userDetails() {
             return this.$store.getters.getUserDetails;
+        },
+        menuItems() {
+            return this.isLoggedIn 
+            ? [
+                {
+                    label: 'Dashboard',
+                    icon: 'pi pi-user',
+                    to: '/dashboard'
+                },
+                {
+                    label: 'Ads',
+                    icon: 'pi pi-briefcase',
+                    to: '/ads'
+                },
+            ] 
+            : [
+                {
+                    label: 'Login',
+                    icon: 'pi pi-sign-in',
+                    to: '/login'
+                },
+                {
+                    label: 'Register',
+                    icon: 'pi pi-users',
+                    to: '/register'
+                }
+            ];
         }
     }
 }

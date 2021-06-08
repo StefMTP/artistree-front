@@ -38,7 +38,14 @@ export default createStore({
       const response = await axios.post('/auth/register', {
         username: payload.username,
         email: payload.email,
-        password: payload.password
+        first_name: payload.first_name,
+        last_name: payload.last_name,
+        password: payload.password,
+        password_confirmation: payload.password_confirmation,
+        role: payload.role,
+        gender: payload.gender,
+        phone: payload.phone,
+        location: payload.location,
       });
 
       return context.dispatch('login', {

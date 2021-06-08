@@ -1,9 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home';
-import About from '../views/About';
 import Dashboard from '../views/Dashboard';
 import Login from '../views/Login';
 import Register from '../views/Register';
+import Ads from '../views/Ads';
+import Ad from '../views/Ad';
+import Post from '../views/Post';
 import store from '../store';
 
 const routes = [
@@ -13,9 +15,10 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    component: About
+    path: '/post/:id',
+    name: 'Post',
+    component: Post,
+    props: true
   },
   {
     path: '/dashboard',
@@ -35,6 +38,17 @@ const routes = [
     name: 'Register',
     component: Register
   },
+  {
+    path: '/ads',
+    name: 'Ads',
+    component: Ads
+  },
+  {
+    path: '/ad/:id',
+    name: 'Ad',
+    component: Ad,
+    props: true
+  }
 ];
 
 const router = createRouter({
