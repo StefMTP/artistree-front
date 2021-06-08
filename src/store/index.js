@@ -23,6 +23,7 @@ export default createStore({
     }
   },
   actions: {
+    // the login action sends a post request to the backend for login and dispatches the attempt action
     async login(context, payload) {
       const response = await axios.post('auth/login', {
         email: payload.email,
@@ -54,7 +55,7 @@ export default createStore({
       });
     },
     async attempt(context, payload) {
-      // If there is a non null token in the payload, use it to set our token, if not then, the token hasn't been set in the state and we can stop the attempt.
+      // If there is a non null token in the payload, use it to set our token, if not, then the token hasn't been set in the state and we can stop the attempt.
       if(payload.token){
         context.commit('setToken', {
           token: payload.token
@@ -79,7 +80,7 @@ export default createStore({
       }
     },
     async logout(context) {
-      // the request is sent to the api to notify that it must log the user out 
+      // the request is sent to the backend to notify that it must log the user out 
       await axios.post('/auth/logout');
       // clear authentication status to signify that user is logged out
       context.dispatch('clearAuth');
